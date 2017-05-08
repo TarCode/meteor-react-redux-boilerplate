@@ -1,6 +1,8 @@
 import React from 'react'
 import { bindActionCreators } from 'redux'
 import { connect } from 'react-redux'
+import { List, ListItem } from 'material-ui/List';
+import Avatar from 'material-ui/Avatar'
 import { fetchPokemon } from '../../actions/pokemon'
 
 class Pokemon extends React.Component {
@@ -15,18 +17,20 @@ class Pokemon extends React.Component {
   render() {
     const { pokemon, loading } = this.props
     return (
-      <div>
+      <List>
         {
           loading ?
           'loading...' :
           (pokemon && pokemon.length > 0 ?
             pokemon.map((p, id) => (
-              <p key={id}>{p.name}</p>
+              <ListItem key={id} primaryText={p.name}
+                leftAvatar={<Avatar>{id+1}</Avatar>}
+              />
             )) :
-            <p>No pokemon</p>
+            <ListItem primaryText="No Pokemon"/>
           )
         }
-      </div>
+      </List>
     )
   }
 }
